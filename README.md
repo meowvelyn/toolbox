@@ -78,7 +78,8 @@ release workflow. Existing releases are kept unchanged.
 
 GitHub Actions verifies the version and publishes a ZIP with `package.json`
 at its root, preserving Unity `.meta` files and sample assets. The separate
-[VPM repository](https://github.com/meowvelyn/vpm) picks up the release on its
-next scheduled run; run its listing workflow manually for an immediate update.
+[VPM repository](https://github.com/meowvelyn/vpm) picks up the release when
+Cloudflare rebuilds it. After publishing a Toolbox release, trigger a new build
+of `meowvelyn-vpm` in Cloudflare to update the listing.
 
 Local builds are written to `dist/` and need Python 3.12 or newer.
