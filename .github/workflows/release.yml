@@ -1,0 +1,42 @@
+name: Release VPM package
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+    paths: [package.json]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: package-release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Build package and verify tag
+        run: |
+          TAG="v$(python -c 'import json; print(json.load(open("package.json"))["version"])')"
+          if [[ "$GITHUB_REF" == refs/tags/* && "$GITHUB_REF_NAME" != "$TAG" ]]; then
+            echo "Tag does not match package.json version" >&2
+            exit 1
+          fi
+          python scripts/package.py --tag "$TAG"
+          echo "RELEASE_TAG=$TAG" >> "$GITHUB_ENV"
+      - name: Publish release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
+            echo "Release $RELEASE_TAG already exists; keeping it unchanged."
+          else
+            gh release create "$RELEASE_TAG" dist/*.zip --target "$GITHUB_SHA" --generate-notes --title "Avatar Toolbox ${RELEASE_TAG#v}"
+          fi

@@ -1,0 +1,25 @@
+{
+  "name": "net.lynuwu.toolbox",
+  "displayName": "Avatar Toolbox",
+  "version": "0.5.0",
+  "unity": "2022.3",
+  "unityRelease": "22f1",
+  "description": "Editor tools for configuring VRChat avatars, animators, menus, textures, and screenshots.",
+  "url": "https://github.com/meowvelyn/toolbox/releases/download/v0.5.0/net.lynuwu.toolbox-0.5.0.zip",
+  "documentationUrl": "https://github.com/meowvelyn/toolbox#readme",
+  "changelogUrl": "https://github.com/meowvelyn/toolbox/releases",
+  "author": {
+    "name": "uslashdeleted",
+    "url": "https://github.com/uslashdeleted/vpm-toolbox"
+  },
+  "vpmDependencies": {
+    "com.vrchat.avatars": ">=3.10.5"
+  },
+  "samples": [
+    {
+      "displayName": "Avatar Toolbox Examples",
+      "description": "Example controller, animations, and expression menus.",
+      "path": "Samples~/Examples"
+    }
+  ]
+}

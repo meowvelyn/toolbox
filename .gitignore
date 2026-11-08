@@ -1,0 +1,13 @@
+Library/
+Temp/
+Obj/
+Logs/
+UserSettings/
+.vs/
+.idea/
+.vscode/
+*.csproj
+*.sln
+*.user
+__pycache__/
+dist/

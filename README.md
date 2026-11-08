@@ -63,7 +63,7 @@ Keep the original author attribution in `package.json`.
 
 1. Update `version` and the matching release ZIP `url` in `package.json`.
 2. Commit and push the package changes to `main`.
-3. Tag the same commit with `vX.Y.Z` and push that tag.
+3. The release workflow publishes the new version automatically when `package.json` changes on `main`.
 
 For the initial release:
 
@@ -72,6 +72,9 @@ python scripts/package.py --tag v0.5.0
 git tag v0.5.0
 git push origin v0.5.0
 ```
+
+You can also publish by pushing a matching `vX.Y.Z` tag or manually running the
+release workflow. Existing releases are kept unchanged.
 
 GitHub Actions verifies the version and publishes a ZIP with `package.json`
 at its root, preserving Unity `.meta` files and sample assets. The separate
