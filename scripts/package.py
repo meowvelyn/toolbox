@@ -6,7 +6,8 @@ import zipfile
 
 
 def build(root: Path, tag: str | None = None) -> Path:
-    manifest = json.loads((root / "package.json").read_text(encoding="utf-8"))
+    package_root = root / "Packages" / "net.lynuwu.toolbox"
+    manifest = json.loads((package_root / "package.json").read_text(encoding="utf-8"))
     version = manifest["version"]
     if tag is not None and tag != f"v{version}":
         raise ValueError(f"Tag {tag!r} must match package version v{version}")
@@ -16,16 +17,10 @@ def build(root: Path, tag: str | None = None) -> Path:
         raise ValueError(f"Set package.json url to {expected_url}")
     output = root / "dist" / filename
     output.parent.mkdir(exist_ok=True)
-    paths = [root / "package.json", root / "README.md"]
-    for optional in ("LICENSE", "CHANGELOG.md"):
-        if (root / optional).is_file():
-            paths.append(root / optional)
-    paths += [p for p in root.glob("*.meta") if p.is_file()]
-    for directory in ("Editor", "Samples~"):
-        paths += sorted(p for p in (root / directory).rglob("*") if p.is_file())
+    paths = sorted(p for p in package_root.rglob("*") if p.is_file())
     with zipfile.ZipFile(output, "w", compression=zipfile.ZIP_DEFLATED) as archive:
         for path in paths:
-            archive.write(path, path.relative_to(root).as_posix())
+            archive.write(path, path.relative_to(package_root).as_posix())
     return output
 
 

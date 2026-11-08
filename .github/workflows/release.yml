@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
     tags: ['v*']
-    paths: [package.json]
+    paths: [Packages/net.lynuwu.toolbox/package.json]
   workflow_dispatch:
 
 permissions:
@@ -24,7 +24,7 @@ jobs:
           python-version: '3.12'
       - name: Build package and verify tag
         run: |
-          TAG="v$(python -c 'import json; print(json.load(open("package.json"))["version"])')"
+          TAG="v$(python -c 'import json; print(json.load(open("Packages/net.lynuwu.toolbox/package.json"))["version"])')"
           if [[ "$GITHUB_REF" == refs/tags/* && "$GITHUB_REF_NAME" != "$TAG" ]]; then
             echo "Tag does not match package.json version" >&2
             exit 1
