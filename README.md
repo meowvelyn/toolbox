@@ -2,9 +2,9 @@
 
 ## Install with VRChat Creator Companion
 
-Add `https://meowvelyn.github.io/vpm/index.json` under **Settings → Packages →
-Add Repository**, then add **Avatar Toolbox** to your avatar project.
-You can also use the [installation page](https://meowvelyn.github.io/vpm/).
+Use the repository URL from the [VPM listing repository](https://github.com/meowvelyn/vpm)
+under **Settings → Packages → Add Repository**, then add **Avatar Toolbox**
+to your avatar project. The listing is hosted on Cloudflare Workers with a custom domain.
 
 ## Package
 
